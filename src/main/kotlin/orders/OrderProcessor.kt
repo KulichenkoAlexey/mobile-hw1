@@ -1,5 +1,6 @@
 package orders
 
+
 /**
  * Returns a human-readable description of the order status.
  * Use a `when` expression on [order].status:
@@ -8,6 +9,9 @@ package orders
  *   - Cancelled -> "Order {id} is cancelled: {reason}"
  */
 fun processOrder(order: Order): String {
-    // TODO: use when to return the appropriate string
-    return ""
+    return when (val status = order.status) {
+        OrderStatus.Created -> "Order ${order.id} is new"
+        OrderStatus.Paid -> "Order ${order.id} is paid"
+        is OrderStatus.Cancelled -> "Order ${order.id} is cancelled: ${status.reason}"
+    }
 }
